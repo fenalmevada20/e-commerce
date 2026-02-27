@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Returns & Exchanges - Print On Demand</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/returns.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Print On Demand</h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('myorders') }}">My Orders</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="{{ url_for('cart') }}" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+                <a href="{{ url_for('myorders') }}" class="btn-login">My Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Returns Section -->
+    <section class="returns-section">
+        <div class="container">
+            <div class="returns-header-container">
+                <h2 class="section-title">My Returns & Exchanges</h2>
+                <a href="{{ url_for('myorders') }}" class="btn-return">Back to Orders</a>
+            </div>
+
+            <div id="returnsContent" class="returns-grid"></div>
+        </div>
+    </section>
+
+    <!-- Return Request Modal -->
+    <div id="returnModal" class="return-modal">
+        <div class="return-modal-content">
+            <span class="close-modal" onclick="closeReturnModal()">✖</span>
+            <h2>Request Return/Exchange</h2>
+            
+            <div id="orderInfo" class="order-info"></div>
+
+            <form id="returnForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="returnType"><strong>Request Type</strong></label>
+                    <select id="returnType" name="return_type" required>
+                        <option value="return">Return (Refund)</option>
+                        <option value="exchange">Exchange (Replacement)</option>
+                    </select>
+                </div>
+
+                <!-- IMAGE UPLOAD -->
+                <div class="file-upload-group">
+                    <label><strong>📸 Upload Images (Optional)</strong></label>
+                    <input type="file"
+                           id="imageUpload"
+                           name="images"
+                           accept="image/*"
+                           multiple>
+                    <div id="imageNameDisplay" class="file-name-display"></div>
+                </div>
+
+                <!-- VIDEO UPLOAD -->
+                <div class="file-upload-group">
+                    <label><strong>🎥 Upload Video (Optional)</strong></label>
+                    <input type="file"
+                           id="videoUpload"
+                           name="video"
+                           accept="video/*">
+                    <div id="videoNameDisplay" class="file-name-display"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="returnReason"><strong>Reason for Return/Exchange</strong></label>
+                    <textarea id="returnReason" name="reason" placeholder="Please describe the reason..." required></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                    <button type="button" class="btn-cancel" onclick="closeReturnModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Return Details Modal -->
+    <div id="detailsModal" class="details-modal">
+        <div class="details-modal-content" id="detailsModalContent">
+            <span class="close-modal" onclick="closeDetailsModal()">✖</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Best quality printing products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('products') }}">Products</a></li>
+                        <li><a href="{{ url_for('services') }}">Services</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: printondemand086@gmail.com</p>
+                    <p>Phone: +91 9428864376</p>
+                    <p>24/7 Customer Service</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Print On Demand. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/returns.js') }}"></script>
+</body>
+</html>

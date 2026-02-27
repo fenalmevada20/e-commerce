@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Print On Demand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Print On Demand</h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="{{ url_for('cart') }}" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+                <a href="{{ url_for('signin') }}" class="btn-login">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sign In Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Sign In</h2>
+                    <p class="auth-subtitle">Welcome back! Please login to your account.</p>
+                    
+                    <form id="signinForm" onsubmit="handleSignIn(event)">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="remember">
+                                Remember me
+                            </label>
+                            <a href="{{ url_for('forgot_password') }}" style="text-decoration: none; color: #667eea; font-weight: 500;">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Sign In</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+                    </div>
+                </div>
+
+                <div class="auth-image">
+                    <img src="{{ url_for('static', filename='img/signin.jpg') }}" alt="Sign In">
+                    <h3>Start Your Journey</h3>
+                    <p>Access amazing custom printing products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Best quality printing products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('products') }}">Products</a></li>
+                        <li><a href="{{ url_for('services') }}">Services</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: printondemand086@gmail.com</p>
+                    <p>Phone: +91 9428864376</p>
+                    <p>24/7 Customer Service</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Print On Demand. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

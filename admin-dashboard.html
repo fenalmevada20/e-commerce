@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN PANEL</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item active">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('admin_categories') }}" class="nav-item">
+                    <span class="icon">📁</span>
+                    <span>Categories</span>
+                </a>
+                <a href="{{ url_for('admin_products') }}" class="nav-item">
+                    <span class="icon">📦</span>
+                    <span>Products</span>
+                </a>
+                <a href="{{ url_for('admin_orders') }}" class="nav-item">
+                    <span class="icon">🛒</span>
+                    <span>Orders</span>
+                </a>
+                <a href="{{ url_for('admin_customers') }}" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>Customers</span>
+                </a>
+                <a href="{{ url_for('admin_feedback') }}" class="nav-item">
+                    <span class="icon">💬</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="{{ url_for('admin_reviews') }}" class="nav-item">
+                    <span class="icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="{{ url_for('admin_returns_page') }}" class="nav-item">
+                    <span class="icon">↩️</span>
+                    <span>Returns</span>
+                </a>
+                <a href="{{ url_for('admin_reports') }}" class="nav-item">
+                    <span class="icon">📈</span>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" onclick="adminLogout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile Overlay -->
+            <div class="admin-overlay" id="adminOverlay"></div>
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="admin-hamburger" onclick="toggleAdminMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>Dashboard</h1>
+                <div class="admin-profile">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-details">
+                        <h3 id="totalProducts">0</h3>
+                        <p>Total Products</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🛒</div>
+                    <div class="stat-details">
+                        <h3 id="totalOrders">0</h3>
+                        <p>Total Orders</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-details">
+                        <h3 id="totalCustomers">0</h3>
+                        <p>Total Customers</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-details">
+                        <h3 id="totalRevenue">₹0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">↩️</div>
+                    <div class="stat-details">
+                        <h3 id="totalReturns">0</h3>
+                        <p>Total Returns</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🟡</div>
+                    <div class="stat-details">
+                        <h3 id="pendingReturns">0</h3>
+                        <p>Pending Returns</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Orders -->
+            <section class="dashboard-section">
+                <h2>Recent Orders</h2>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrdersTable">
+                            <tr>
+                                <td colspan="6" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Recent Customers -->
+            <section class="dashboard-section">
+                <h2>Recent Customers</h2>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentCustomersTable">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Recent Reviews Section -->
+            <section class="dashboard-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Recent Reviews</h2>
+                    <a href="{{ url_for('admin_reviews') }}" style="padding: 0.5rem 1rem; background: #667eea; color: white; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">View All Reviews</a>
+                </div>
+                
+                <!-- Reviews Stats -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #f39c12;" id="pendingReviewCount">0</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Pending</div>
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #27ae60;" id="approvedReviewCount">0</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Approved</div>
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #e74c3c;" id="rejectedReviewCount">0</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Rejected</div>
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #667eea;" id="totalReviewCount">0</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Total</div>
+                    </div>
+                </div>
+
+                <!-- Recent Reviews List -->
+                <div id="recentReviewsContainer" style="display: grid; gap: 1rem;">
+                    <div style="text-align: center; padding: 2rem; color: #999;">Loading reviews...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-dashboard.js') }}"></script>
+</body>
+</html>

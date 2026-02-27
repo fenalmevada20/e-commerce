@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN PANEL</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('admin_categories') }}" class="nav-item">
+                    <span class="icon">📁</span>
+                    <span>Categories</span>
+                </a>
+                <a href="{{ url_for('admin_products') }}" class="nav-item active">
+                    <span class="icon">📦</span>
+                    <span>Products</span>
+                </a>
+                <a href="{{ url_for('admin_orders') }}" class="nav-item">
+                    <span class="icon">🛒</span>
+                    <span>Orders</span>
+                </a>
+                <a href="{{ url_for('admin_customers') }}" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>Customers</span>
+                </a>
+                <a href="{{ url_for('admin_feedback') }}" class="nav-item">
+                    <span class="icon">💬</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="{{ url_for('admin_reviews') }}" class="nav-item">
+                    <span class="icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="{{ url_for('admin_returns_page') }}" class="nav-item">
+                    <span class="icon">↩️</span>
+                    <span>Returns</span>
+                </a>
+                <a href="{{ url_for('admin_reports') }}" class="nav-item">
+                    <span class="icon">📈</span>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" onclick="adminLogout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile Overlay -->
+            <div class="admin-overlay" id="adminOverlay"></div>
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="admin-hamburger" onclick="toggleAdminMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>Manage Products</h1>
+                <div class="admin-profile">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Actions Bar -->
+            <div class="actions-bar">
+                <button class="btn-primary" onclick="showAddProductModal()">+ Add New Product</button>
+            </div>
+
+            <!-- Products Table -->
+            <section class="dashboard-section">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <tr>
+                                <td colspan="7" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProductModal()">&times;</span>
+            <h2 id="modalTitle">Add New Product</h2>
+            
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <input type="hidden" id="productId">
+                
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="tshirt">T-Shirts</option>
+                        <option value="mug">Mugs</option>
+                        <option value="keychain">Keychains</option>
+                        <option value="pillow">Pillow Covers</option>
+                        <option value="mobile">Mobile Covers</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="productPrice">Price (₹)</label>
+                    <input type="number" id="productPrice" required min="0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="productImage">Image URL</label>
+                    <input type="text" id="productImage" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="productStatus">Status</label>
+                    <select id="productStatus" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeProductModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-products.js') }}"></script>
+</body>
+</html>

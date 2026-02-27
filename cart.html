@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - Print On Demand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Print On Demand</h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="{{ url_for('cart') }}" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+                <a href="{{ url_for('myorders') }}" class="btn-login">My Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h2 class="section-title">Shopping Cart</h2>
+
+            <div class="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <div id="cartItemsList">
+                        <!-- Cart items will be loaded dynamically -->
+                    </div>
+
+                    <div id="emptyCart" class="empty-cart" style="display: none;">
+                        <img src="{{ url_for('static', filename='img/emptycart.webp') }}" alt="Empty Cart">
+                        <h3>Your cart is empty</h3>
+                        <p>Add some products to get started</p>
+                        <a href="{{ url_for('products') }}" class="btn-primary">Browse Products</a>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₹0.00</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Delivery Charges:</span>
+                        <span id="delivery">₹0.00</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>GST (18%):</span>
+                        <span id="gst">₹0.00</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">₹0.00</span>
+                    </div>
+
+                    <button class="btn-checkout" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                    
+                    <div class="payment-info">
+                        <p>💳 Cash on Delivery Available</p>
+                        <p>📦 Delivery within 5-7 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCheckoutModal()">&times;</span>
+            <h2>Checkout</h2>
+            
+            <form id="checkoutForm" onsubmit="placeOrder(event)">
+                <div class="form-group">
+                    <label for="deliveryAddress">Delivery Address</label>
+                    <textarea id="deliveryAddress" name="deliveryAddress" rows="4" placeholder="Enter your complete delivery address" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" placeholder="Enter contact number" required pattern="[0-9]{10}">
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="cod">Cash on Delivery (COD)</option>
+                    </select>
+                </div>
+
+                <div class="order-summary-modal">
+                    <h3>Order Total: ₹<span id="modalTotal">0.00</span></h3>
+                </div>
+
+                <button type="submit" class="btn-place-order">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Best quality printing products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('products') }}">Products</a></li>
+                        <li><a href="{{ url_for('services') }}">Services</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: printondemand086@gmail.com</p>
+                    <p>Phone: +91 9428864376</p>
+                    <p>24/7 Customer Service</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Print On Demand. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+</body>
+</html>

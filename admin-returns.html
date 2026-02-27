@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Returns - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN PANEL</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('admin_categories') }}" class="nav-item">
+                    <span class="icon">📁</span>
+                    <span>Categories</span>
+                </a>
+                <a href="{{ url_for('admin_products') }}" class="nav-item">
+                    <span class="icon">📦</span>
+                    <span>Products</span>
+                </a>
+                <a href="{{ url_for('admin_orders') }}" class="nav-item">
+                    <span class="icon">🛒</span>
+                    <span>Orders</span>
+                </a>
+                <a href="{{ url_for('admin_customers') }}" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>Customers</span>
+                </a>
+                <a href="{{ url_for('admin_feedback') }}" class="nav-item">
+                    <span class="icon">💬</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="{{ url_for('admin_reviews') }}" class="nav-item">
+                    <span class="icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="{{ url_for('admin_returns_page') }}" class="nav-item active">
+                    <span class="icon">↩️</span>
+                    <span>Returns</span>
+                </a>
+                <a href="{{ url_for('admin_reports') }}" class="nav-item">
+                    <span class="icon">📈</span>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" onclick="adminLogout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile Overlay -->
+            <div class="admin-overlay" id="adminOverlay"></div>
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="admin-hamburger" onclick="toggleAdminMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>Manage Returns & Exchanges</h1>
+                <div class="admin-profile">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <button class="filter-btn active" onclick="filterReturns('all')">All Returns</button>
+                <button class="filter-btn" onclick="filterReturns('pending')">🟡 Pending</button>
+                <button class="filter-btn" onclick="filterReturns('approved')">🟢 Approved</button>
+                <button class="filter-btn" onclick="filterReturns('rejected')">🔴 Rejected</button>
+                <button class="filter-btn" onclick="filterReturns('completed')">🔵 Completed</button>
+            </div>
+
+            <!-- Returns Grid -->
+            <section class="dashboard-section">
+                <div class="returns-grid" id="returnsGrid">
+                    <!-- Returns will be loaded here -->
+                </div>
+
+                <!-- No Returns Message -->
+                <div id="noReturns" class="no-returns hidden">
+                    <p>No returns found</p>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div id="returnPaginationControls" class="pagination-controls">
+                    <button id="returnPrevBtn" class="btn-primary" onclick="returnPreviousPage()">← Previous</button>
+                    <span id="returnPageInfo" class="page-info">Page 1 of 1</span>
+                    <button id="returnNextBtn" class="btn-primary" onclick="returnNextPage()">Next →</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-returns.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Customers - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN PANEL</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('admin_categories') }}" class="nav-item">
+                    <span class="icon">📁</span>
+                    <span>Categories</span>
+                </a>
+                <a href="{{ url_for('admin_products') }}" class="nav-item">
+                    <span class="icon">📦</span>
+                    <span>Products</span>
+                </a>
+                <a href="{{ url_for('admin_orders') }}" class="nav-item">
+                    <span class="icon">🛒</span>
+                    <span>Orders</span>
+                </a>
+                <a href="{{ url_for('admin_customers') }}" class="nav-item active">
+                    <span class="icon">👥</span>
+                    <span>Customers</span>
+                </a>
+                <a href="{{ url_for('admin_feedback') }}" class="nav-item">
+                    <span class="icon">💬</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="{{ url_for('admin_reviews') }}" class="nav-item">
+                    <span class="icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="{{ url_for('admin_returns_page') }}" class="nav-item">
+                    <span class="icon">↩️</span>
+                    <span>Returns</span>
+                </a>
+                <a href="{{ url_for('admin_reports') }}" class="nav-item">
+                    <span class="icon">📈</span>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" onclick="adminLogout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile Overlay -->
+            <div class="admin-overlay" id="adminOverlay"></div>
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="admin-hamburger" onclick="toggleAdminMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>Manage Customers</h1>
+                <div class="admin-profile">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Actions Bar -->
+            <div class="actions-bar">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterCustomers('all')">All Customers</button>
+                    <button class="filter-btn" onclick="filterCustomers('active')">Active</button>
+                    <button class="filter-btn" onclick="filterCustomers('inactive')">Inactive</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchCustomer" placeholder="Search customers..." onkeyup="searchCustomers()">
+                </div>
+            </div>
+
+            <!-- Customers Table -->
+            <section class="dashboard-section">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Joined Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTable">
+                            <tr>
+                                <td colspan="8" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div id="customerPaginationControls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                    <button id="customerPrevBtn" class="btn-primary" onclick="customerPreviousPage()">← Previous</button>
+                    <span id="customerPageInfo" style="font-weight: bold; min-width: 100px; text-align: center;">Page 1 of 1</span>
+                    <button id="customerNextBtn" class="btn-primary" onclick="customerNextPage()">Next →</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCustomerModal()">&times;</span>
+            <h2>Customer Details</h2>
+            
+            <div id="customerDetailsContent">
+                <!-- Customer details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-customers.js') }}"></script>
+</body>
+</html>

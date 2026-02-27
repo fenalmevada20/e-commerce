@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Print On Demand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Print On Demand</h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="{{ url_for('cart') }}" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+                <a href="{{ url_for('signin') }}" class="btn-login">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sign Up Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Sign Up</h2>
+                    <p class="auth-subtitle">Create your account to get started.</p>
+                    
+                    <form id="signupForm" onsubmit="handleSignUp(event)">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Contact Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your contact number" required pattern="[0-9]{10}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter your address" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Create a password" required minlength="6">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required>
+                                I agree to the <a href="#" onclick="openTermsModal(event)" style="color: #667eea; text-decoration: underline; cursor: pointer;">Terms & Conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Sign Up</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="{{ url_for('signin') }}">Sign In</a></p>
+                    </div>
+                </div>
+
+                <div class="auth-image">
+                    <img src="{{ url_for('static', filename='img/signup.webp') }}" alt="Sign Up">
+                    <h3>Join Us Today</h3>
+                    <p>Start customizing your products now</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Best quality printing products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('products') }}">Products</a></li>
+                        <li><a href="{{ url_for('services') }}">Services</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: printondemand086@gmail.com</p>
+                    <p>Phone: +91 9428864376</p>
+                    <p>24/7 Customer Service</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Print On Demand. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Terms & Conditions Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms & Conditions</h2>
+                <span class="close" onclick="closeTermsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>1. Our Print On Demand Service</h3>
+                <p>We let you customize and print your designs on T-Shirts, Mugs, Keychains, Pillow Covers, and Mobile Covers. You can design online using our tools or upload your own files.</p>
+
+                <h3>2. Design Ownership & Responsibility</h3>
+                <p>You own your design. Make sure it doesn't copy anyone's copyrighted work or brand logos. You're responsible for checking that your design is legal and original.</p>
+
+                <h3>3. What We Can't Print</h3>
+                <p>We won't print offensive content, fake brands, or anything illegal. If your design violates these rules, we'll cancel your order without printing.</p>
+
+                <h3>4. Production Timeline</h3>
+                <p>Orders start printing 1-2 days after order confirmation. Custom designs may take a bit longer. You'll get email updates on your order progress.</p>
+
+                <h3>5. Product Quality & Color</h3>
+                <p>We use the best printing methods available. Small color differences may happen due to screen settings and fabric type. This is normal. Once printed, designs can't be changed.</p>
+
+                <h3>6. Payment Options</h3>
+                <p>We accept Cash On Delivery (COD) - pay when you receive your order. No advance payment needed.</p>
+
+                <h3>7. Shipping & Delivery</h3>
+                <p>Your order ships 3-5 business days after printing. We pack with care and send to your address. For orders, you pay the full amount + delivery charges at your door.</p>
+
+                <h3>8. Returns & Refunds</h3>
+                <p>Return damaged items within 7 days with proof. we refund your payment within 2-3 days. We'll reprint or refund for printing mistakes. Return shipping is your cost unless it's our fault.</p>
+
+                <h3>9. Cancel Order</h3>
+                <p>You can cancel your order only while it's in "Pending" status. Once the order starts printing or moves to "Processing", cancellation is not allowed. </p>
+
+                <h3>10. Your Account Security</h3>
+                <p>Create an account with correct details. Keep your password private. Don't share your login with anyone else. Ensure your delivery address is correct before ordering.</p>
+
+                <h3>11. Data & Privacy</h3>
+                <p>Your info stays with us and is kept safe. We use your phone number and address only for delivery. We may email you order updates and offers - you can logout anytime.</p>
+
+                <h3>12. We're Only Responsible For</h3>
+                <p>We refund the product cost for our printing mistakes. We're not responsible for indirect damages or other claims. </p>
+
+                <h3>13. What We Don't Guarantee</h3>
+                <p>Products are sold as-is. Print quality depends on your design file and resolution. We can't promise how long items will last with heavy use.</p>
+
+                <h3>14. We May Change These Rules</h3>
+                <p>We can update these terms anytime. Using our service means you accept the new terms.</p>
+
+                <h3>15. Contact & Support</h3>
+                <p>Have questions about anything else? Contact us anytime. We reply to all messages within 24 hours.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeTermsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script>
+        function openTermsModal(event) {
+            event.preventDefault();
+            document.getElementById('termsModal').style.display = 'block';
+        }
+
+        function closeTermsModal() {
+            document.getElementById('termsModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('termsModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

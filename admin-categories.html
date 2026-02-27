@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN PANEL</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('admin_categories') }}" class="nav-item active">
+                    <span class="icon">📁</span>
+                    <span>Categories</span>
+                </a>
+                <a href="{{ url_for('admin_products') }}" class="nav-item">
+                    <span class="icon">📦</span>
+                    <span>Products</span>
+                </a>
+                <a href="{{ url_for('admin_orders') }}" class="nav-item">
+                    <span class="icon">🛒</span>
+                    <span>Orders</span>
+                </a>
+                <a href="{{ url_for('admin_customers') }}" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>Customers</span>
+                </a>
+                <a href="{{ url_for('admin_feedback') }}" class="nav-item">
+                    <span class="icon">💬</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="{{ url_for('admin_reviews') }}" class="nav-item">
+                    <span class="icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="{{ url_for('admin_returns_page') }}" class="nav-item">
+                    <span class="icon">↩️</span>
+                    <span>Returns</span>
+                </a>
+                <a href="{{ url_for('admin_reports') }}" class="nav-item">
+                    <span class="icon">📈</span>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" onclick="adminLogout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile Overlay -->
+            <div class="admin-overlay" id="adminOverlay"></div>
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="admin-hamburger" onclick="toggleAdminMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>Manage Categories</h1>
+                <div class="admin-profile">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Actions Bar -->
+            <div class="actions-bar">
+                <button class="btn-primary" onclick="showAddCategoryModal()">+ Add New Category</button>
+            </div>
+
+            <!-- Categories Grid -->
+            <section class="dashboard-section">
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Add/Edit Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCategoryModal()">&times;</span>
+            <h2 id="modalTitle">Add New Category</h2>
+            
+            <form id="categoryForm" onsubmit="saveCategory(event)">
+                <input type="hidden" id="categoryId">
+                
+                <div class="form-group">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categorySlug">Category Slug</label>
+                    <input type="text" id="categorySlug" required>
+                    <small>Used in URL (e.g., tshirt, mug)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryImage">Thumbnail URL</label>
+                    <input type="text" id="categoryImage" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryDescription">Description</label>
+                    <textarea id="categoryDescription" rows="3"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-categories.js') }}"></script>
+</body>
+</html>

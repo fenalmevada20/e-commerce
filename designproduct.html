@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Product - Print On Demand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/design.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Print On Demand</h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="{{ url_for('cart') }}" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+                <a href="{{ url_for('signin') }}" class="btn-login">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+<!-- Design Customize Section (Hidden by default) -->
+<div id="designSection" style="display:none; margin-top:20px;">
+
+    <h3>Customize Your Product</h3>
+
+    <label>Upload Image</label>
+    <input type="file" id="designImageInput" accept="image/*">
+
+    <label>Add Text</label>
+    <input type="text" id="designTextInput" placeholder="Enter your text">
+
+    <label>Text Color</label>
+    <input type="color" id="textColorInput" value="#000000">
+
+    <div id="sizeContainer" style="display:none;">
+        <label>Size</label>
+        <select id="sizeInput" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;margin-top:6px;font-size:0.95rem;background:transparent">
+            <option value="">Select Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+        </select>
+    </div>
+
+    <div id="mobileModelContainer" style="display:none;">
+        <label>Mobile Model</label>
+        <input type="text" id="mobileModelInput" placeholder="Enter your mobile model (e.g., iPhone 15, Samsung S24)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;margin-top:6px;font-size:0.95rem;background:transparent">
+    </div>
+
+    <!-- Preview -->
+    <div class="design-preview">
+        <div class="preview-box">
+            <img id="baseProductImage">
+            <img id="uploadedDesignImage" class="design-img">
+            <span id="designText" class="design-text"></span>
+        </div>
+    </div>
+
+    <button class="btn-primary" onclick="saveDesignAndAddToCart()">
+        Save Design & Add to Cart
+    </button>
+</div>
+
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script src="{{ url_for('static', filename='js/design-product.js') }}"></script>
+</body>
+</html>
